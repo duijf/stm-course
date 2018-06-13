@@ -87,12 +87,12 @@ Bonus:
  - What runtime options are available for threads? How can you use them on
    multiple cores?
 
-## 4. Channel your concentration
+## 4. Queue the next exercise
 
 Open the documentation for the `stm` package. You can see a bunch of datatypes,
-other than `TVar`. An interesting one is `TChan`: a channel.
+other than `TVar`. An interesting one is `TQueue`: a queue.
 
-Try to think how you could implement a `TChan` based of `TVar`s. How would that
+Try to think how you could implement a `TQueue` based of `TVar`s. How would that
 work? Try not to look at the source or the STM paper, but ask for hints if
 you're stuck.
 
@@ -103,20 +103,20 @@ Try to put your idea into code (feel free to validate first, if we're short on
 time). Write the definition for. You might need :
 
 ```
-data TChan a = ...
+data TQueue a = ...
 ```
 
 Implement the following functions for your datatype:
 
 ```
-newTChan :: STM (TChan a)
-readTChan :: TChan a -> STM a
-writeTChan :: TChan a -> a -> STM ()
+newTQueue :: STM (TQueue a)
+readTQueue :: TQueue a -> STM a
+writeTQueue :: TQueue a -> a -> STM ()
 ```
 
-## 5. Extending our custom channel
+## 5. Extending our queue
 
-Extend your custom `TChan` into `BTChan` so it becomes bounded (with a
+Extend your custom `TQueue` into `TBQueue` so it becomes bounded (with a
 configurable number of items). Good to ask yourself: when might this be useful?
 
 How can we provide backpressure on insertion? (Do we even need to be explicit
@@ -125,10 +125,10 @@ about this?)
 Let's write the code. Try to create two variants of write:
 
 ```haskell
-writeBTChan :: BTChan a -> a -> STM ()
+writeBTQueue :: TBQueue a -> a -> STM ()
 
 data InsertResult = Success | CapacityExceeded
-writeBTChan' :: BTChan a -> a -> STM InsertResult
+writeTBQueue' :: TBQueue a -> a -> STM InsertResult
 ```
 
 The first one blocking, the second one providing feedback to the caller about
@@ -136,7 +136,7 @@ the result.
 
 If you're running out of things to do:
 
- - Try to use the `TChan` and `BTChan` in a work queue setting.
+ - Try to use the `TQueue` and `TBQueue` in a work queue setting.
  - Have a single writer and multiple consumers of work items (this can just be
    printing a number, with a timeout based on how large the number is).
  - Add whatever mechansim you find interesting. Ideas: HTTP RPC, or something
