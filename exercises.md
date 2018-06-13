@@ -100,7 +100,8 @@ One hint is free: you'll need to store read and write ends of the queue in the
 same `TVar`.
 
 Try to put your idea into code (feel free to validate first, if we're short on
-time). Write the definition for. You might need :
+time--it's in the slides of part II). Write the definition for `TQueue`. You
+will need:
 
 ```
 data TQueue a = ...
