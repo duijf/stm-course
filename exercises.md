@@ -1,4 +1,4 @@
-# STM excersises
+# STM exercises
 
 Some warm-up questions, to check your understanding:
 
@@ -62,7 +62,7 @@ Add a dependency on the `async` and `random` packages. Import
 `Control.Concurrent.Async` and try to find whatever you need from the `random`
 package.
 
-Create a 5 threads using `race_` (excersise in itself). Spawn the following
+Create a 5 threads using `race_` (exercise in itself). Spawn the following
 function:
 
 ```haskell
